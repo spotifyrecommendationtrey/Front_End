@@ -1,4 +1,5 @@
 import React from 'react';
+import UserLog from './components/UserLog'
 import './App.css';
 
 function App() {
@@ -7,6 +8,8 @@ function App() {
       <header className="App-header">
         <h1>Suggestify (Working Title lol)</h1>
       </header>
+      {/* We can decide where to put the login/register page. for now i'll render it here so it's easier to see/work with */}
+      <UserLog/>
     </div>
   );
 }
