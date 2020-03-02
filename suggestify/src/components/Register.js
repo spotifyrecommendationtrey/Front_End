@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 const FormContainer = styled.div`
     margin: 0 auto;
+    margin-bottom: 2%;
     border: 5px solid;
     width: 50%;
     form{
@@ -53,14 +54,14 @@ export default function Register(){
         <FormContainer>
             <form className='user-register'>
 
-                <label htmlFor='new-username'>Username: </label>
-                <input type ='text' id='new-username' name='username' onChange={onInputChange}></input>
+                <label htmlFor='new-username'>Pick a Username: </label>
+                <input type ='text' id='new-username' name='username' placeholder='Must be unique' onChange={onInputChange}></input>
 
                 {/* <label htmlFor='user-email'>Email: </label>
                 <input type ='email' id='user-email' name='new-username'></input> */}
                 {/* add minLength to password */}
-                <label htmlFor='new-password'>Password: </label>
-                <input type ='text' id='new-password' name='password' onChange={onInputChange}></input>
+                <label htmlFor='new-password'>Choose Your Password: </label>
+                <input type ='text' id='new-password' name='password' placeholder='Must have at least 8 characters' minLength= '8' onChange={onInputChange}></input>
 
                 <button type='submit' onSubmit={onSubmit}>Register</button>
             </form>
