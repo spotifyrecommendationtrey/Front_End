@@ -1,13 +1,15 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 import styled from 'styled-components';
-// import {useForm} from 'react-hook-form';
+import { withFormik, Form, Field} from 'formik';
+import * as Yup from "yup";
+
 
 const FormContainer = styled.div`
     margin: 0 auto;
     border: 5px solid;
     width: 50%;
-    form{
+    Form{
         display: flex;
         flex-direction: column;
         margin: 2%;
@@ -33,38 +35,74 @@ const FormContainer = styled.div`
     }
 `; 
 
-export default function Login(){
+const Login = ({})=>{
     const [user, setUser] = useState({
         // id: ,
         username: '',
         password: ''
     });
+    // useEffect(()=>{
+    //     console.log('User', status);
+    //     status && setUser(user =>[...user, status])
+    // }, [status])
     
-    const onInputChange = event =>{
-        setUser({
-            ...user,
-            [event.target.name]: event.target.value,
-        });
-        console.log(user);
-    }
+    // const onInputChange = event =>{
+    //     setUser({
+    //         ...user,
+    //         [event.target.name]: event.target.value,
+    //     });
+    //     console.log(user);
+    // }
     // const { register, handleSubmit, watch, errors } = useForm();
-    const onSubmit = e =>{
-        console.log(e)
-        e.preventDefault();
-        axios.post('https://spotify3-buildweek.herokuapp.com/api/auth/register', user);
-    }
+    // const onSubmit = e =>{
+    //     console.log(e)
+    //     e.preventDefault();
+    //     axios.post('https://spotify3-buildweek.herokuapp.com/api/auth/register', user);
+    // }
 
     // console.log(watch('example'))
 
     return(
         <FormContainer>
-                <form className='user-login'>
+            <Form>
                 <label htmlFor='username'>Username: </label>
-                <input type='text' id='username' name ='username' onInputChange={onInputChange} ></input>
+                <Field type='text' id='username' name ='username' />
+                {/* {touched.name && errors.name && <p className='error'>{errors.username}</p>} */}
                 <label htmlFor='password'>Password: </label>
-                <input type='password' id ='password' name='password' onInputChange={onInputChange} ></input>
+                <Field type='password' id ='password' name='password' />
+                {/* {touched.name && errors.name && <p className='error'>{errors.password}</p>} */}
                 <button type='submit'>Login</button>
-            </form>
+            </Form>
         </FormContainer>
     )
 }
+const FormikLogin = withFormik({
+
+    mapPropsToValues({username, password}){
+        return {
+            username: username || '', 
+            password: password || ''
+        }
+    },
+    
+    // validationSchema: Yup.object().shape({
+    //     usernamename: Yup.string().required("Required Field"),
+    //     password: Yup.string().required("Required Field")
+
+    // }),
+    // handleSubmit(values, {setStatus}){
+    //     console.log("surrendering", values)
+    //     axios.post('https://spotify3-buildweek.herokuapp.com/api/auth/login', values)
+    //     .then(response => {
+    //         console.log('Goooood, goooood', response)
+    //         setStatus(response.data)
+            
+    //     })
+    //     .catch(error => {
+    //         console.log(error.response)
+    //     })
+    // }
+})(Login);
+
+
+export default FormikLogin
