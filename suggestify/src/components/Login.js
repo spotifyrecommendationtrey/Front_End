@@ -35,16 +35,17 @@ const FormContainer = styled.div`
     }
 `; 
 
-const Login = ({})=>{
+const Login = ({touched, errors, status})=>{
+
     const [user, setUser] = useState({
         // id: ,
         username: '',
         password: ''
     });
-    // useEffect(()=>{
-    //     console.log('User', status);
-    //     status && setUser(user =>[...user, status])
-    // }, [status])
+    useEffect(()=>{
+        console.log('User', status);
+        status && setUser(user =>[...user, status])
+    }, [status])
     
     // const onInputChange = event =>{
     //     setUser({
@@ -67,10 +68,10 @@ const Login = ({})=>{
             <Form>
                 <label htmlFor='username'>Username: </label>
                 <Field type='text' id='username' name ='username' />
-                {/* {touched.name && errors.name && <p className='error'>{errors.username}</p>} */}
+                {touched.username && errors.username && <p className='error'>{errors.username}</p>}
                 <label htmlFor='password'>Password: </label>
                 <Field type='password' id ='password' name='password' />
-                {/* {touched.name && errors.name && <p className='error'>{errors.password}</p>} */}
+                {touched.password && errors.password && <p className='error'>{errors.password}</p>}
                 <button type='submit'>Login</button>
             </Form>
         </FormContainer>
@@ -85,11 +86,22 @@ const FormikLogin = withFormik({
         }
     },
     
-    // validationSchema: Yup.object().shape({
-    //     usernamename: Yup.string().required("Required Field"),
-    //     password: Yup.string().required("Required Field")
+    validationSchema: Yup.object().shape({
+        username: Yup.string().required("Required Field"),
+        password: Yup.string().required("Required Field")
 
-    // }),
+    }),
+    handleSubmit: (values, {resetForm})=>{
+        console.log('submitting', values)
+        axios.post('https://spotify3-buildweek.herokuapp.com/api/auth/login', values)
+        .then(response=>{
+            console.log(response);
+        })
+        .catch(err =>{
+            console.log('OOF!', err);
+            resetForm();
+        })
+    }
     // handleSubmit(values, {setStatus}){
     //     console.log("surrendering", values)
     //     axios.post('https://spotify3-buildweek.herokuapp.com/api/auth/login', values)

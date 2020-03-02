@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import { string, object } from 'yup';
 
 const FormContainer = styled.div`
     margin: 0 auto;
@@ -71,3 +72,9 @@ export default function Register(){
 
     )
 }
+// let yup = require('yup');
+// let schema = yup.object().shape({
+//     username: yup.string().required(),
+//     password: yup.string().required()
+
+//   });
