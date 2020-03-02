@@ -6,6 +6,13 @@ import styled from 'styled-components';
 import Login from './Login'
 import Register from './Register'
 
+const LogContainer = styled.div`
+    h2{
+        margin: 2%;
+        font-size: calc(10px + 2vmin);
+    }
+`;
+
 
 const UserLog = () => {
     const [user, setUser] = useState()
@@ -19,7 +26,7 @@ const UserLog = () => {
     //     })
     // }, [])
     return(
-        <div className='log-form-page'>
+        <LogContainer>
         <Switch>
             <Route path='/register'>
                 <h2>Registration</h2>
@@ -27,7 +34,7 @@ const UserLog = () => {
                 <Link to='/'>Back</Link>
             </Route>
             <Route exact path='/'>
-                <h2>Login</h2>
+                <h2>Login for the Vibes</h2>
                 <Login />
                 <h3 className='reg-title-link'>New User?</h3>
                 <Link to='/register'>Register</Link>
@@ -36,7 +43,7 @@ const UserLog = () => {
 
 
 
-        </div>
+        </LogContainer>
     );
 
 }
