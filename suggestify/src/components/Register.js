@@ -20,6 +20,8 @@ const FormContainer = styled.div`
             width: 75%;
             min-height: 3.5vh;
             border: 1px inset black;
+            font-size: calc(4px + 2vmin);
+            padding: 0 2%;
         }
         button{
             margin: 0 auto;
@@ -55,13 +57,13 @@ export default function Register(){
             <form className='user-register'>
 
                 <label htmlFor='new-username'>Pick a Username: </label>
-                <input type ='text' id='new-username' name='username' placeholder='Must be unique' onChange={onInputChange}></input>
+                <input type ='text' id='new-username' name='username' placeholder='Must be unique' value={userCred.username}onChange={onInputChange}></input>
 
                 {/* <label htmlFor='user-email'>Email: </label>
                 <input type ='email' id='user-email' name='new-username'></input> */}
                 {/* add minLength to password */}
                 <label htmlFor='new-password'>Choose Your Password: </label>
-                <input type ='text' id='new-password' name='password' placeholder='Must have at least 8 characters' minLength= '8' onChange={onInputChange}></input>
+                <input type ='password' id='new-password' name='password' placeholder='Must have at least 8 characters' minLength= '8' value= {userCred.password} onChange={onInputChange}></input>
 
                 <button type='submit' onSubmit={onSubmit}>Register</button>
             </form>

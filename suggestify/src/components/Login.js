@@ -19,6 +19,8 @@ const FormContainer = styled.div`
             width: 75%;
             min-height: 3.5vh;
             border: 1px inset black;
+            font-size: calc(4px + 2vmin);
+            padding: 0 2%;
         }
         button{
             margin: 0 auto;
