@@ -3,14 +3,32 @@ import {Route, Link} from 'react-router-dom'
 import axios from 'axios'
 
 const UserLog = () => {
+    // const [user, setUser] = useState()
+    // useEffect(()=>{
+    //     axios.get('https://spotify3-buildweek.herokuapp.com/api/users')
+    //     .then(response=>{
+    //         console.log(response);
+    //     })
+    // }, [])
     return(
         <div className='log-form-page'>
+        <h2>Login</h2>
         <form className='user-login'>
-            <label>Username: </label>
-            <input type='text' name ='username'></input>
-            <label>Password: </label>
-            <input type='password'></input>
+            <label htmlFor='username'>Username: </label>
+            <input type='text' id='username' name ='username'></input>
+            <label htmlFor='password'>Password: </label>
+            <input type='password' id ='password' name='password'></input>
             <button type='submit'>Login</button>
+        </form>
+        <h2>Registration</h2>
+        <form className='user-register'>
+            <label htmlFor='new-username'>Username: </label>
+            <input type ='text' id='new-username' name='new-username'></input>
+            <label htmlFor='user-email'>Email: </label>
+            <input type ='email' id='user-email' name='new-username'></input>
+            <label htmlFor='user-email'>Password: </label>
+            <input type ='text' id='new-username' name='new-username'></input>
+            <button type='submit'>Register</button>
         </form>
         </div>
     );
