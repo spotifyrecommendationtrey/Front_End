@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Suggestify (Working Title lol)</h1>
+        <h1>Welcome to Suggestify!</h1>
       </header>
       {/* We can decide where to put the login/register page. for now i'll render it here so it's easier to see/work with */}
       <UserLog/>

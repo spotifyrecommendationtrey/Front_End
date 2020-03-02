@@ -1,12 +1,12 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 import styled from 'styled-components';
 import { withFormik, Form, Field} from 'formik';
 import * as Yup from "yup";
 
+
 const FormContainer = styled.div`
     margin: 0 auto;
-    margin-bottom: 2%;
     border: 5px solid;
     width: 50%;
     Form{
@@ -35,43 +35,37 @@ const FormContainer = styled.div`
     }
 `; 
 
-const Register = ({values, touched, errors, status}) => {
-    // Cred is short for CREDENTIALS
-    const [userCred, setUserCred] = useState({
-        id: Date.now(),
+const Login = ({touched, errors, status})=>{
+
+    const [users, setUsers] = useState({
+        // id: ,
         username: '',
         password: ''
     });
     useEffect(()=>{
         console.log('User', status);
-        status && setUserCred(user =>[...userCred, status])
+        status && setUsers(users =>[...users, status])
     }, [status])
+    
 
     return(
         <FormContainer>
             <Form>
-                <label htmlFor='new-username'>Pick a Username: </label>
-                <Field type ='text' id='new-username' name='username' placeholder='Must be unique' ></Field>
+                <label htmlFor='username'>Username: </label>
+                <Field type='text' id='username' name ='username' />
                 {touched.username && errors.username && <p className='error'>{errors.username}</p>}
-                {/* <label htmlFor='user-email'>Email: </label>
-                <input type ='email' id='user-email' name='new-username'></input> */}
-                {/* add minLength to password */}
-                <label htmlFor='new-password'>Choose Your Password: </label>
-                <Field type ='password' id='new-password' name='password' placeholder='Must have at least 8 characters' minLength= '8'/>
-                {touched.username && errors.username && <p className='error'>{errors.username}</p>}
-                <button className='registerSubmit' type='submit' >Register</button>
+                <label htmlFor='password'>Password: </label>
+                <Field type='password' id ='password' name='password' />
+                {touched.password && errors.password && <p className='error'>{errors.password}</p>}
+                <button type='submit'>Login</button>
             </Form>
-            
         </FormContainer>
-
     )
 }
+const FormikLogin = withFormik({
 
-const FormikRegister = withFormik({
-
-    mapPropsToValues({id, username, password}){
+    mapPropsToValues({username, password}){
         return {
-            id: id,
             username: username || '', 
             password: password || ''
         }
@@ -79,25 +73,21 @@ const FormikRegister = withFormik({
     
     validationSchema: Yup.object().shape({
         username: Yup.string().required("Required Field"),
-        password: Yup.number().moreThan(8)
+        password: Yup.string().required("Required Field")
 
     }),
-    handleSubmit(values, {resetForm, setStatus}){
-        debugger
+    handleSubmit: (values, {resetForm})=>{
         console.log('submitting', values)
-        axios.post('https://spotify3-buildweek.herokuapp.com/api/auth/register', values)
+        axios.post('https://spotify3-buildweek.herokuapp.com/api/auth/login', values)
         .then(response=>{
             console.log(response);
-            setStatus(response.data);
-            resetForm();
-
         })
         .catch(err =>{
             console.log('OOF!', err);
             resetForm();
         })
     }
-})(Register);
+})(Login);
 
 
-export default FormikRegister
+export default FormikLogin
