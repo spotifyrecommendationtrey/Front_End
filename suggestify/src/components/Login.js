@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 import styled from 'styled-components';
+import * as Yup from 'yup';
 
 const FormContainer = styled.div`
     margin: 0 auto;
@@ -47,7 +48,8 @@ export default function Login(){
     }
     const onSubmit = e =>{
         e.preventDefault();
-        // axios.post('https://spotify3-buildweek.herokuapp.com/api/auth/register', user);
+        fieldValidation()
+        axios.post('https://spotify3-buildweek.herokuapp.com/api/auth/register', user);
     }
 
     return(
@@ -62,3 +64,10 @@ export default function Login(){
         </FormContainer>
     )
 }
+
+const fieldValidation= ()=>{
+    validationSchema: Yup.object().shape({
+    username: Yup.string().required("Username is required"),
+    password: Yup.string().required("Password is required")
+
+})}
