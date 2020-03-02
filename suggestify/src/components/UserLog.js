@@ -15,7 +15,7 @@ const UserLog = () => {
         <h2>Login</h2>
         <form className='user-login'>
             <label htmlFor='username'>Username: </label>
-            <input type='text' id='username' name ='username'></input>
+            <input type='text' id='username' name ='username' minLength='8' placeholder='Must be more than 8 characters'></input>
             <label htmlFor='password'>Password: </label>
             <input type='password' id ='password' name='password'></input>
             <button type='submit'>Login</button>
@@ -24,8 +24,8 @@ const UserLog = () => {
         <form className='user-register'>
             <label htmlFor='new-username'>Username: </label>
             <input type ='text' id='new-username' name='new-username'></input>
-            <label htmlFor='user-email'>Email: </label>
-            <input type ='email' id='user-email' name='new-username'></input>
+            {/* <label htmlFor='user-email'>Email: </label>
+            <input type ='email' id='user-email' name='new-username'></input> */}
             <label htmlFor='user-email'>Password: </label>
             <input type ='text' id='new-username' name='new-username'></input>
             <button type='submit'>Register</button>
