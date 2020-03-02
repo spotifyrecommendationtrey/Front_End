@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import axios from 'axios'
 
 export default function Register(){
     // Cred is short for CREDENTIALS
@@ -11,6 +12,10 @@ export default function Register(){
             ...userCred,
             [e.target.name]: event.target.value,
         });
+    }
+    const onSubmit = e =>{
+        e.preventDefault();
+        axios.post('https://spotify3-buildweek.herokuapp.com/api/auth/register', {username, password});
     }
 
     return(
@@ -25,7 +30,7 @@ export default function Register(){
         <label htmlFor='new-password'>Password: </label>
         <input type ='text' id='new-password' name='password' onChange={onInputChange}></input>
 
-        <button type='submit'>Register</button>
+        <button type='submit' onSubmit={onSubmit}>Register</button>
     </form>
     )
 }
