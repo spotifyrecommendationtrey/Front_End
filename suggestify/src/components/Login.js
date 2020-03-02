@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 import styled from 'styled-components';
-import * as Yup from 'yup';
+// import {useForm} from 'react-hook-form';
 
 const FormContainer = styled.div`
     margin: 0 auto;
@@ -39,6 +39,7 @@ export default function Login(){
         username: '',
         password: ''
     });
+    
     const onInputChange = event =>{
         setUser({
             ...user,
@@ -46,28 +47,24 @@ export default function Login(){
         });
         console.log(user);
     }
+    // const { register, handleSubmit, watch, errors } = useForm();
     const onSubmit = e =>{
+        console.log(e)
         e.preventDefault();
-        fieldValidation()
         axios.post('https://spotify3-buildweek.herokuapp.com/api/auth/register', user);
     }
+
+    // console.log(watch('example'))
 
     return(
         <FormContainer>
                 <form className='user-login'>
                 <label htmlFor='username'>Username: </label>
-                <input type='text' id='username' name ='username'></input>
+                <input type='text' id='username' name ='username' onInputChange={onInputChange} ></input>
                 <label htmlFor='password'>Password: </label>
-                <input type='password' id ='password' name='password'></input>
+                <input type='password' id ='password' name='password' onInputChange={onInputChange} ></input>
                 <button type='submit'>Login</button>
             </form>
         </FormContainer>
     )
 }
-
-const fieldValidation= ()=>{
-    validationSchema: Yup.object().shape({
-    username: Yup.string().required("Username is required"),
-    password: Yup.string().required("Password is required")
-
-})}
