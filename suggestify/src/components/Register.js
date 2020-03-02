@@ -7,15 +7,16 @@ export default function Register(){
         username: '',
         password: ''
     });
-    const onInputChange = e =>{
+    const onInputChange = event =>{
         setUserCred({
             ...userCred,
-            [e.target.name]: event.target.value,
+            [event.target.name]: event.target.value,
         });
+        console.log(userCred);
     }
     const onSubmit = e =>{
         e.preventDefault();
-        axios.post('https://spotify3-buildweek.herokuapp.com/api/auth/register', {username, password});
+        axios.post('https://spotify3-buildweek.herokuapp.com/api/auth/register', userCred);
     }
 
     return(

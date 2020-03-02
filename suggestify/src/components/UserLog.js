@@ -6,12 +6,15 @@ import Register from './Register'
 
 const UserLog = () => {
     const [user, setUser] = useState()
-    // useEffect(()=>{
-    //     axios.get('https://spotify3-buildweek.herokuapp.com/api/users')
-    //     .then(response=>{
-    //         console.log(response);
-    //     })
-    // }, [])
+    useEffect(()=>{
+        axios.get('https://spotify3-buildweek.herokuapp.com/api/users', {})
+        .then(response=>{
+            console.log(response);
+        })
+        .catch(error=>{
+            console.log('OOF!', error);
+        })
+    }, [])
     return(
         <div className='log-form-page'>
         <h2>Login</h2>
