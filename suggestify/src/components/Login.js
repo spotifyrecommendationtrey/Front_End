@@ -1,5 +1,34 @@
 import React, {useState, useEffect} from 'react'
-import axios from 'axios'
+import axios from 'axios';
+import styled from 'styled-components';
+
+const FormContainer = styled.div`
+    margin: 0 auto;
+    border: 5px solid;
+    width: 50%;
+    form{
+        display: flex;
+        flex-direction: column;
+        margin: 2%;
+        label{
+            align-self: flex-start;
+            font-size: calc(6.5px + 2vmin);
+        }
+        input{
+            margin: 2% 1%;
+            width: 75%;
+            min-height: 3.5vh;
+            border: 1px inset black;
+        }
+        button{
+            margin: 0 auto;
+            margin-top: 3%;
+            margin-bottom: 3%;
+            width: 25%;
+            font-size: calc(4px + 2vmin);
+        }
+    }
+`; 
 
 export default function Login(){
     const [user, setUser] = useState({
@@ -20,7 +49,7 @@ export default function Login(){
     }
 
     return(
-        <div className='login-form'>
+        <FormContainer>
                 <form className='user-login'>
                 <label htmlFor='username'>Username: </label>
                 <input type='text' id='username' name ='username'></input>
@@ -28,6 +57,6 @@ export default function Login(){
                 <input type='password' id ='password' name='password'></input>
                 <button type='submit'>Login</button>
             </form>
-        </div>
+        </FormContainer>
     )
 }
