@@ -4,6 +4,7 @@ import axios from 'axios'
 export default function Register(){
     // Cred is short for CREDENTIALS
     const [userCred, setUserCred] = useState({
+        id: Date.now(),
         username: '',
         password: ''
     });
