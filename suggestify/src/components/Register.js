@@ -35,7 +35,7 @@ const FormContainer = styled.div`
     }
 `; 
 
-const Register = ({touched, errors, status}) => {
+const Register = ({values, touched, errors, status}) => {
     // Cred is short for CREDENTIALS
     const [userCred, setUserCred] = useState({
         id: Date.now(),
@@ -43,15 +43,13 @@ const Register = ({touched, errors, status}) => {
         password: ''
     });
     useEffect(()=>{
-        console.log('New User', status);
-        status && setUserCred(user =>[...user, status])
+        console.log('User', status);
+        status && setUserCred(user =>[...userCred, status])
     }, [status])
-
 
     return(
         <FormContainer>
-            <Form className='user-register'>
-
+            <Form>
                 <label htmlFor='new-username'>Pick a Username: </label>
                 <Field type ='text' id='new-username' name='username' placeholder='Must be unique' ></Field>
                 {touched.username && errors.username && <p className='error'>{errors.username}</p>}
@@ -59,11 +57,11 @@ const Register = ({touched, errors, status}) => {
                 <input type ='email' id='user-email' name='new-username'></input> */}
                 {/* add minLength to password */}
                 <label htmlFor='new-password'>Choose Your Password: </label>
-                <Field type ='password' id='new-password' name='password' placeholder='Must have at least 8 characters' minLength= '8'></Field>
+                <Field type ='password' id='new-password' name='password' placeholder='Must have at least 8 characters' minLength= '8'/>
                 {touched.username && errors.username && <p className='error'>{errors.username}</p>}
-
-                <button type='submit'>Register</button>
+                <button className='registerSubmit' type='submit' >Register</button>
             </Form>
+            
         </FormContainer>
 
     )
@@ -71,8 +69,9 @@ const Register = ({touched, errors, status}) => {
 
 const FormikRegister = withFormik({
 
-    mapPropsToValues({username, password}){
+    mapPropsToValues({id, username, password}){
         return {
+            id: id,
             username: username || '', 
             password: password || ''
         }
@@ -83,11 +82,15 @@ const FormikRegister = withFormik({
         password: Yup.number().moreThan(8)
 
     }),
-    handleSubmit: (values, {resetForm})=>{
+    handleSubmit(values, {resetForm, setStatus}){
+        debugger
         console.log('submitting', values)
         axios.post('https://spotify3-buildweek.herokuapp.com/api/auth/register', values)
         .then(response=>{
             console.log(response);
+            setStatus(response.data);
+            resetForm();
+
         })
         .catch(err =>{
             console.log('OOF!', err);

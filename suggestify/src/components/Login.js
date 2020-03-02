@@ -37,31 +37,16 @@ const FormContainer = styled.div`
 
 const Login = ({touched, errors, status})=>{
 
-    const [user, setUser] = useState({
+    const [users, setUsers] = useState({
         // id: ,
         username: '',
         password: ''
     });
     useEffect(()=>{
         console.log('User', status);
-        status && setUser(user =>[...user, status])
+        status && setUsers(users =>[...users, status])
     }, [status])
     
-    // const onInputChange = event =>{
-    //     setUser({
-    //         ...user,
-    //         [event.target.name]: event.target.value,
-    //     });
-    //     console.log(user);
-    // }
-    // const { register, handleSubmit, watch, errors } = useForm();
-    // const onSubmit = e =>{
-    //     console.log(e)
-    //     e.preventDefault();
-    //     axios.post('https://spotify3-buildweek.herokuapp.com/api/auth/register', user);
-    // }
-
-    // console.log(watch('example'))
 
     return(
         <FormContainer>
