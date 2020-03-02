@@ -1,14 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { string, object } from 'yup';
+import { withFormik, Form, Field} from 'formik';
+import * as Yup from "yup";
 
 const FormContainer = styled.div`
     margin: 0 auto;
     margin-bottom: 2%;
     border: 5px solid;
     width: 50%;
-    form{
+    Form{
         display: flex;
         flex-direction: column;
         margin: 2%;
@@ -34,47 +35,66 @@ const FormContainer = styled.div`
     }
 `; 
 
-export default function Register(){
+const Register = ({touched, errors, status}) => {
     // Cred is short for CREDENTIALS
     const [userCred, setUserCred] = useState({
         id: Date.now(),
         username: '',
         password: ''
     });
-    const onInputChange = event =>{
-        setUserCred({
-            ...userCred,
-            [event.target.name]: event.target.value,
-        });
-        console.log(userCred);
-    }
-    const onSubmit = e =>{
-        e.preventDefault();
-        axios.post('https://spotify3-buildweek.herokuapp.com/api/auth/register', userCred);
-    }
+    useEffect(()=>{
+        console.log('New User', status);
+        status && setUserCred(user =>[...user, status])
+    }, [status])
+
 
     return(
         <FormContainer>
-            <form className='user-register'>
+            <Form className='user-register'>
 
                 <label htmlFor='new-username'>Pick a Username: </label>
-                <input type ='text' id='new-username' name='username' placeholder='Must be unique' value={userCred.username}onChange={onInputChange}></input>
-
+                <Field type ='text' id='new-username' name='username' placeholder='Must be unique' ></Field>
+                {touched.username && errors.username && <p className='error'>{errors.username}</p>}
                 {/* <label htmlFor='user-email'>Email: </label>
                 <input type ='email' id='user-email' name='new-username'></input> */}
                 {/* add minLength to password */}
                 <label htmlFor='new-password'>Choose Your Password: </label>
-                <input type ='password' id='new-password' name='password' placeholder='Must have at least 8 characters' minLength= '8' value= {userCred.password} onChange={onInputChange}></input>
+                <Field type ='password' id='new-password' name='password' placeholder='Must have at least 8 characters' minLength= '8'></Field>
+                {touched.username && errors.username && <p className='error'>{errors.username}</p>}
 
-                <button type='submit' onSubmit={onSubmit}>Register</button>
-            </form>
+                <button type='submit'>Register</button>
+            </Form>
         </FormContainer>
 
     )
 }
-// let yup = require('yup');
-// let schema = yup.object().shape({
-//     username: yup.string().required(),
-//     password: yup.string().required()
 
-//   });
+const FormikRegister = withFormik({
+
+    mapPropsToValues({username, password}){
+        return {
+            username: username || '', 
+            password: password || ''
+        }
+    },
+    
+    validationSchema: Yup.object().shape({
+        username: Yup.string().required("Required Field"),
+        password: Yup.number().moreThan(8)
+
+    }),
+    handleSubmit: (values, {resetForm})=>{
+        console.log('submitting', values)
+        axios.post('https://spotify3-buildweek.herokuapp.com/api/auth/register', values)
+        .then(response=>{
+            console.log(response);
+        })
+        .catch(err =>{
+            console.log('OOF!', err);
+            resetForm();
+        })
+    }
+})(Register);
+
+
+export default FormikRegister

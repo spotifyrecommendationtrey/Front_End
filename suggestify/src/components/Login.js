@@ -102,18 +102,6 @@ const FormikLogin = withFormik({
             resetForm();
         })
     }
-    // handleSubmit(values, {setStatus}){
-    //     console.log("surrendering", values)
-    //     axios.post('https://spotify3-buildweek.herokuapp.com/api/auth/login', values)
-    //     .then(response => {
-    //         console.log('Goooood, goooood', response)
-    //         setStatus(response.data)
-            
-    //     })
-    //     .catch(error => {
-    //         console.log(error.response)
-    //     })
-    // }
 })(Login);
 
 

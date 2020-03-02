@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import {Route, Link, Switch} from 'react-router-dom'
-import axios from 'axios'
 import styled from 'styled-components';
 
 import Login from './Login'
