@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import Login from './Login'
 import Register from './Register'
+import UserProfile from './UserProfile'
 
 const LogContainer = styled.div`
     h2, h3{
@@ -30,6 +31,10 @@ const UserLog = () => {
     return(
         <LogContainer>
         <Switch>
+            <Route path='/profile'>
+                <h2>Your Profile</h2>
+                <UserProfile />
+            </Route>
             <Route path='/register'>
                 <h2>Register to Begin Exploring</h2>
                 <Register />
