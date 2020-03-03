@@ -37,11 +37,7 @@ const FormContainer = styled.div`
 
 const Login = ({touched, errors, status})=>{
 
-    const [users, setUsers] = useState({
-        // id: ,
-        username: '',
-        password: ''
-    });
+    const [users, setUsers] = useState([]);
     useEffect(()=>{
         console.log('User', status);
         status && setUsers(users =>[...users, status])
