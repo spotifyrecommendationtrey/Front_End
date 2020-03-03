@@ -38,7 +38,6 @@ const UserLog = () => {
         <LogContainer>
         <Switch>
             <Route path='/profile'>
-                <h2>Your Profile</h2>
                 <UserProfile />
             </Route>
             <Route path='/register'>
