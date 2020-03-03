@@ -13,7 +13,7 @@ const LogContainer = styled.div`
 `;
 
 
-const UserLog = () => {
+const UserLog = ({history}) => {
     const [user, setUser] = useState()
     // useEffect(()=>{
     //     axios.get('https://spotify3-buildweek.herokuapp.com/api/users')
@@ -34,7 +34,7 @@ const UserLog = () => {
             </Route>
             <Route exact path='/'>
                 <h2>Login for the Vibes</h2>
-                <Login />
+                <Login history={history} />
                 <h3 className='reg-title-link'>New User?</h3>
                 <Link to='/register'>Register Here</Link>
             </Route>

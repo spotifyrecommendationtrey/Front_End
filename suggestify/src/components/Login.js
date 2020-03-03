@@ -76,11 +76,12 @@ const FormikLogin = withFormik({
         password: Yup.string().required("Required Field")
 
     }),
-    handleSubmit: (values, {resetForm})=>{
+    handleSubmit: (values, {resetForm, props: {history}})=>{
         console.log('submitting', values)
         axios.post('https://spotify3-buildweek.herokuapp.com/api/auth/login', values)
-        .then(response=>{
-            console.log(response);
+        .then(({data: {token}}) => {
+            localStorage.setItem('token', token);
+            history.push('/dashboard');
         })
         .catch(err =>{
             console.log('OOF!', err);
