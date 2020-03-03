@@ -56,16 +56,6 @@ const Register = ({values, touched, errors, status}) => {
                 {touched.username && errors.username && <p className='error'>{errors.username}</p>}
                 <button className='submitBtn' type='submit' >Register</button>
             </Form>
-            <pre>{JSON.stringify(values, null, 2)}</pre>
-            {userCred.map(user=>{
-                return(
-                    <ul key={user.id}>
-                        <li>Username: {user.username}</li>
-                        <li>Password: {user.password}</li>
-                    </ul>
-                );
-            })
-            }
         </FormContainer>
 
     )
@@ -87,7 +77,6 @@ const FormikRegister = withFormik({
 
     }),
     handleSubmit(values, {resetForm, setStatus}){
-        debugger
         console.log('submitting', values)
         axios.post('https://spotify3-buildweek.herokuapp.com/api/auth/register', values)
         .then(response=>{
