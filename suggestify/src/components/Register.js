@@ -76,7 +76,8 @@ const FormikRegister = withFormik({
         return {
             id: Date.now() || '',
             username: username || '', 
-            password: password || ''
+            password: password || '',
+            toProfile: false
         }
     },
     
@@ -91,6 +92,7 @@ const FormikRegister = withFormik({
         .then(response=>{
             console.log(response);
             setStatus(response.data);
+            this.mapPropsToErrors.history.push('/profile')
             resetForm();
 
         })

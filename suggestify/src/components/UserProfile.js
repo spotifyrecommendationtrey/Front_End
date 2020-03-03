@@ -1,10 +1,23 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import {Link} from 'react-router-dom';
+
+const LogOut = styled.div`
+    margin: 2% 10% 0 0;
+    text-align: right;
+    a {
+        border: 1px outset #141414;
+        border-radius: 25px;
+        background-color: #81b71a;
+        padding: .8%;
+        text-shadow: 0 0 10px #141414;
+    }
+    
+`;
 
 const ProfileContainer = styled.div`
     margin: 0 auto;
-    margin-top: 3%;
     border: 5px outset #81b71a;
     border-radius: 25px;
     width: 50%;
@@ -34,6 +47,9 @@ export default function UserProfile(){
     console.log(users)
     return(
         <div>
+            <LogOut>
+                <Link to='/'>Log Out</Link>
+            </LogOut>
             <ProfileContainer className='profile'>
                 <h2>User Profile</h2>
                 <p>Content Coming Soon</p>
