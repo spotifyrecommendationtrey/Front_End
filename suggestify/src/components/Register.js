@@ -37,11 +37,7 @@ const FormContainer = styled.div`
 
 const Register = ({values, touched, errors, status}) => {
     // Cred is short for CREDENTIALS
-    const [userCred, setUserCred] = useState({
-        id: 0,
-        username: '',
-        password: ''
-    });
+    const [userCred, setUserCred] = useState([]);
     useEffect(()=>{
         console.log('New User', status);
         status && setUserCred(userCred =>[...userCred, status])
@@ -50,13 +46,13 @@ const Register = ({values, touched, errors, status}) => {
     return(
         <FormContainer>
             <Form>
-                <label htmlFor='new-username'>Pick a Username: </label>
-                <Field type ='text' id='new-username' name='new-username' placeholder='Must be unique' ></Field>
+                <label htmlFor='username'>Pick a Username: </label>
+                <Field type ='text' id='username' name='username' placeholder='Must be unique' ></Field>
                 {touched.username && errors.username && <p className='error'>{errors.username}</p>}
                 {/* <label htmlFor='user-email'>Email: </label>
                 <input type ='email' id='user-email' name='new-username'></input> */}
-                <label htmlFor='new-password'>Choose Your Password: </label>
-                <Field type ='password' id='new-password' name='new-password' placeholder='Must have at least 8 characters' minLength= '8'/>
+                <label htmlFor='password'>Choose Your Password: </label>
+                <Field type ='password' id='password' name='password' placeholder='Must have at least 8 characters' minLength= '8'/>
                 {touched.username && errors.username && <p className='error'>{errors.username}</p>}
                 <button className='submitBtn' type='submit' >Register</button>
             </Form>
