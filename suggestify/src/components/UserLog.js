@@ -13,6 +13,12 @@ const LogContainer = styled.div`
         color: white;
         text-shadow: 0 0 10px #81b71a;
     }
+    p{
+        margin: 3% 1% 2% 1%;;
+        font-size: calc(8px + 2vmin);
+        color: white;
+        text-shadow: 0 0 10px #81b71a;
+    }
 
     a{
         text-decoration: none;
