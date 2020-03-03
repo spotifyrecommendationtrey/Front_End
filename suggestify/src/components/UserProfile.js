@@ -20,14 +20,18 @@ export default function UserProfile(){
     }, [])
     console.log(users)
     return(
-        <div className='profile'>
-            <h2>Content Coming Soon</h2>
+        <div>
+            <ProfileContainer className='profile'>
+                <h2>Content Coming Soon</h2>
+            </ProfileContainer>
             <div className='other-users'>
                 <h3>Others Using Suggestify:</h3>
                 {users.map(user=>{
-                    return <p>{user.username}</p>;
+                return <p key={user.id}>{user.username}</p>;
                 })}
             </div>
         </div>
+
+        
     )
 }
