@@ -16,7 +16,7 @@ const LogOut = styled.div`
     
 `;
 
-const ProfileContainer = styled.div`
+const ProfileContainer = styled.div` 
     margin: 0 auto;
     border: 5px outset #81b71a;
     border-radius: 25px;
@@ -37,7 +37,7 @@ const ProfileContainer = styled.div`
 // `;
 
 
-export default function UserProfile(){
+export default function UserProfile(props){
     // const [users, setUsers] = useState([])
     // useEffect(()=>{
     //     axios.get('https://spotify3-buildweek.herokuapp.com/api/users')
@@ -46,6 +46,7 @@ export default function UserProfile(){
     //     })
     // }, [])
     // console.log(users)
+    console.log(props.message);
     return(
         <div>
             <LogOut>

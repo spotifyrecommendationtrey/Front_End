@@ -99,9 +99,8 @@ const Register = props => {
 
 const FormikRegister = withFormik({
 
-    mapPropsToValues({id, username, password}){
+    mapPropsToValues({username, password}){
         return {
-            id: Date.now() || '',
             username: username || '', 
             password: password || '',
         }
@@ -113,11 +112,11 @@ const FormikRegister = withFormik({
 
     }),
     handleSubmit(values, {props, resetForm, setStatus}){
-        console.log('submitting', values)
+        // console.log('submitting', values)
         axiosWithAuth().post('/api/auth/register', values)
         .then(response=>{
             window.localStorage.setItem('token', response.data.token);
-            // console.log(response);
+            console.log('RESPONSE', response);
             setStatus(response.data);
             props.history.push('/');
 
