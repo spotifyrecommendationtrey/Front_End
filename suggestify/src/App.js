@@ -35,6 +35,7 @@ const LogContainer = styled.div`
 `;
 
 function App() {
+  // Should I put user state here and make a newUser register function? Can I do that?
   return (
     <div className="App">
       <header className="App-header">
@@ -49,12 +50,10 @@ function App() {
             <Route exact path='/' render={(props) =>(<Login {...props}/>)} />
         </Switch>
         </LogContainer>
+        </div>
     );
 
 }
 
-    </div>
-  );
-}
 
 export default App;
