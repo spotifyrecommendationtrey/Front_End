@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { withFormik, Form, Field} from 'formik';
@@ -82,11 +82,13 @@ const FormikLogin = withFormik({
         password: Yup.string().required("Required Field")
 
     }),
-    handleSubmit: (values, {resetForm})=>{
+    handleSubmit: (values, {resetForm, props: {history}})=>{
         console.log('submitting', values)
         axios.post('https://spotify3-buildweek.herokuapp.com/api/auth/login', values)
-        .then(response=>{
-            console.log(response);
+        .then(({data: {id, token}}) => {
+            localStorage.setItem('token', token);
+            localStorage.setItem('id', id);
+            history.push('/dashboard');
         })
         .catch(err =>{
             console.log('OOF!', err);

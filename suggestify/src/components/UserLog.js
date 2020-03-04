@@ -33,7 +33,7 @@ const LogContainer = styled.div`
 `;
 
 
-const UserLog = () => {
+const UserLog = ({history}) => {
     return(
         <LogContainer>
         <Switch>
@@ -49,7 +49,7 @@ const UserLog = () => {
             </Route>
             <Route exact path='/'>
                 <h2>Login to Cue the Music</h2>
-                <Login />
+                <Login history={history} />
                 <h3 className='reg-title-link'>New User?</h3>
                 <div className='register-link'>
                     <Link to='/register'>Register Here</Link>         
