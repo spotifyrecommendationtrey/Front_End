@@ -49,6 +49,7 @@ const FormContainer = styled.div`
 
 const Register = props => {
     console.log('props', props)
+
     const {
         values,
         touched,
@@ -60,7 +61,8 @@ const Register = props => {
         handleSubmit,
       } = props;
     // Cred is short for CREDENTIALS
-    console.log(values, touched, errors, status )
+    console.log(values, touched, errors, status)
+    
     const [userCred, setUserCred] = useState([]);
     useEffect(()=>{
         console.log('New User', status);
@@ -92,6 +94,10 @@ const Register = props => {
     )
 }
 
+function routeToLogin({history}){
+    return history.push('/');
+ }
+
 const FormikRegister = withFormik({
 
     mapPropsToValues({id, username, password}){
@@ -107,14 +113,13 @@ const FormikRegister = withFormik({
         password: Yup.string().required("Required Field").min(8)
 
     }),
-    handleSubmit(values, {resetForm, setStatus}, history){
+    handleSubmit(values, {resetForm, setStatus}){
         console.log('submitting', values)
         axiosWithAuth().post('/api/auth/register', values)
         .then(response=>{
             window.localStorage.setItem('token', response.data.token);
             console.log(response);
             setStatus(response.data);
-            history.push('/')
 
         })
         .catch(err =>{

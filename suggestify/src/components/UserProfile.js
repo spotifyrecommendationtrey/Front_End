@@ -31,6 +31,7 @@ const OtherUsersDiv = styled.div`
     background-color: #141414;
     .other-users{
         display: flex;
+        flex-flow: wrap;
         justify-content: space-evenly;
     }
 `;
@@ -57,6 +58,9 @@ export default function UserProfile(){
             <OtherUsersDiv>
                 <h3>Others Using Suggestify:</h3>
                 <div className='other-users'>
+                    {setTimeout(()=>{
+                        return <div>Fetching users...</div>;
+                    }, 5000)}
                     {users.map(user=>{
                     return <p key={user.id}>{user.username}</p>;
                     })}
