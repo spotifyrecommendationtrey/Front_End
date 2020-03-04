@@ -45,8 +45,26 @@ const FormContainer = styled.div`
         }
     }
 `; 
+const OtherUsersDiv = styled.div`
+    margin: 2%;
+    border: 5px outset #81b71a;
+    border-radius: 25px;
+    background-color: #141414;
+    .other-users{
+        display: flex;
+        flex-flow: wrap;
+        justify-content: space-evenly;
+    }
+`;
 
 const Login = ({touched, errors, status})=>{
+    const [otherUsers, setOtherUsers] = useState([])
+    useEffect(()=>{
+        axios.get('https://spotify3-buildweek.herokuapp.com/api/users')
+        .then(response=>{
+            setOtherUsers(response.data)
+        })
+    }, [])
 
     const [users, setUsers] = useState([]);
     useEffect(()=>{
@@ -73,6 +91,18 @@ const Login = ({touched, errors, status})=>{
             <div className='register-link'>
                 <Link to='/register'>Register Here</Link>         
             </div>
+            <OtherUsersDiv>
+                <h3>Others Using Suggestify:</h3>
+                <div className='other-users'>
+                    {setTimeout(()=>{
+                        return <div>Loading users...</div>;
+                    }, 5000)}
+                    {otherUsers.map(user=>{
+                    return <p key={user.id}>{user.username}</p>;
+                    })}
+                </div>
+
+            </OtherUsersDiv>
         </div>
 
     )
