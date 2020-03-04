@@ -45,7 +45,7 @@ function App() {
       {/* <UserLog/> */}
         <LogContainer>
         <Switch>
-            <Route path='/profile' render={(props) =>( <UserProfile {...props}/>)} />   
+            <Route path='/profile/:id' render={(props) =>( <UserProfile {...props}/>)} />   
             <Route path='/register' render={(props) =>(<Register {...props}/>)} />
             <Route exact path='/' render={(props) =>(<Login {...props}/>)} />
         </Switch>
