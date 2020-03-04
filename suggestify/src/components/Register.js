@@ -49,7 +49,6 @@ const FormContainer = styled.div`
 
 const Register = props => {
     console.log('props', props)
-
     const {
         values,
         touched,
@@ -69,6 +68,9 @@ const Register = props => {
         status && setUserCred(userCred =>[...userCred, status])
     }, [status])
 
+    const routeToLogin = props => {
+        return props.history.push('/');
+    }
     return(
         <div>
             <h2>Register to Begin Exploring</h2>
@@ -80,7 +82,7 @@ const Register = props => {
                     {/* <label htmlFor='user-email'>Email: </label>
                     <input type ='email' id='user-email' name='new-username'></input> */}
                     <label htmlFor='password'>Choose Your Password: </label>
-                    <Field type ='password' id='password' name='password' placeholder='Must have at least 8 characters' minLength= '8'/>
+                    <Field type ='password' id='password' name='password' placeholder='Must have at least 8 characters' minLength= '8' />
                     {touched.username && errors.username && <p className='error'>{errors.username}</p>}
                     <button className='submitBtn' type='submit' >Register</button>
                 </Form>
@@ -94,9 +96,6 @@ const Register = props => {
     )
 }
 
-function routeToLogin({history}){
-    return history.push('/');
- }
 
 const FormikRegister = withFormik({
 
@@ -113,13 +112,14 @@ const FormikRegister = withFormik({
         password: Yup.string().required("Required Field").min(8)
 
     }),
-    handleSubmit(values, {resetForm, setStatus}){
+    handleSubmit(values, {props, resetForm, setStatus}){
         console.log('submitting', values)
         axiosWithAuth().post('/api/auth/register', values)
         .then(response=>{
             window.localStorage.setItem('token', response.data.token);
-            console.log(response);
+            // console.log(response);
             setStatus(response.data);
+            props.history.push('/');
 
         })
         .catch(err =>{
