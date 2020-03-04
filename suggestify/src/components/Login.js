@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 import styled from 'styled-components';
+import {Link} from 'react-router-dom';
 import { withFormik, Form, Field} from 'formik';
 import * as Yup from "yup";
 
@@ -55,17 +56,25 @@ const Login = ({touched, errors, status})=>{
     
 
     return(
-        <FormContainer>
-            <Form>
-                <label htmlFor='username'>Username: </label>
-                <Field type='text' id='username' name ='username' />
-                {touched.username && errors.username && <p className='error'>{errors.username}</p>}
-                <label htmlFor='password'>Password: </label>
-                <Field type='password' id ='password' name='password' />
-                {touched.password && errors.password && <p className='error'>{errors.password}</p>}
-                <button type='submit'>Login</button>
-            </Form>
-        </FormContainer>
+        <div>
+            <h2>Login to Cue the Music</h2>
+            <FormContainer>
+                <Form>
+                    <label htmlFor='username'>Username: </label>
+                    <Field type='text' id='username' name ='username' />
+                    {touched.username && errors.username && <p className='error'>{errors.username}</p>}
+                    <label htmlFor='password'>Password: </label>
+                    <Field type='password' id ='password' name='password' />
+                    {touched.password && errors.password && <p className='error'>{errors.password}</p>}
+                    <button type='submit'>Login</button>
+                </Form>
+            </FormContainer>
+            <h3 className='reg-title-link'>New User?</h3>
+            <div className='register-link'>
+                <Link to='/register'>Register Here</Link>         
+            </div>
+        </div>
+
     )
 }
 const FormikLogin = withFormik({

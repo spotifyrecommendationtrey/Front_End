@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import {Link} from 'react-router-dom';
 import { withFormik, Form, Field} from 'formik';
 import * as Yup from "yup";
 
@@ -53,19 +54,26 @@ const Register = ({values, touched, errors, status}) => {
     }, [status])
 
     return(
-        <FormContainer>
-            <Form>
-                <label htmlFor='username'>Pick a Username: </label>
-                <Field type ='text' id='username' name='username' placeholder='Must be unique' ></Field>
-                {touched.username && errors.username && <p className='error'>{errors.username}</p>}
-                {/* <label htmlFor='user-email'>Email: </label>
-                <input type ='email' id='user-email' name='new-username'></input> */}
-                <label htmlFor='password'>Choose Your Password: </label>
-                <Field type ='password' id='password' name='password' placeholder='Must have at least 8 characters' minLength= '8'/>
-                {touched.username && errors.username && <p className='error'>{errors.username}</p>}
-                <button className='submitBtn' type='submit' >Register</button>
-            </Form>
-        </FormContainer>
+        <div>
+            <h2>Register to Begin Exploring</h2>
+            <FormContainer>
+                <Form>
+                    <label htmlFor='username'>Pick a Username: </label>
+                    <Field type ='text' id='username' name='username' placeholder='Must be unique' ></Field>
+                    {touched.username && errors.username && <p className='error'>{errors.username}</p>}
+                    {/* <label htmlFor='user-email'>Email: </label>
+                    <input type ='email' id='user-email' name='new-username'></input> */}
+                    <label htmlFor='password'>Choose Your Password: </label>
+                    <Field type ='password' id='password' name='password' placeholder='Must have at least 8 characters' minLength= '8'/>
+                    {touched.username && errors.username && <p className='error'>{errors.username}</p>}
+                    <button className='submitBtn' type='submit' >Register</button>
+                </Form>
+            </FormContainer>
+            <div className='back-link'>
+                    <Link to='/'>Back</Link>
+                </div>
+        </div>
+
 
     )
 }

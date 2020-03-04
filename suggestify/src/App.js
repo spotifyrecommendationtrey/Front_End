@@ -44,24 +44,9 @@ function App() {
       {/* <UserLog/> */}
         <LogContainer>
         <Switch>
-            <Route path='/profile'>
-                <UserProfile />
-            </Route>
-            <Route path='/register'>
-                <h2>Register to Begin Exploring</h2>
-                <Register />
-                <div className='back-link'>
-                    <Link to='/'>Back</Link>
-                </div>
-            </Route>
-            <Route exact path='/'>
-                <h2>Login to Cue the Music</h2>
-                <Login />
-                <h3 className='reg-title-link'>New User?</h3>
-                <div className='register-link'>
-                    <Link to='/register'>Register Here</Link>         
-                </div>
-            </Route>
+            <Route path='/profile' render={(props) =>( <UserProfile {...props}/>)} />   
+            <Route path='/register' render={(props) =>(<Register {...props}/>)} />
+            <Route exact path='/' render={(props) =>(<Login {...props}/>)} />
         </Switch>
         </LogContainer>
     );
