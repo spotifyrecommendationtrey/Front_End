@@ -113,7 +113,7 @@ const FormikRegister = withFormik({
     }),
     handleSubmit(values, {props, resetForm, setStatus}){
         // console.log('submitting', values)
-        axiosWithAuth().post('/api/auth/register', values)
+        axiosWithAuth().post('/auth/register', values)
         .then(response=>{
             window.localStorage.setItem('token', response.data.token);
             console.log('RESPONSE', response);
