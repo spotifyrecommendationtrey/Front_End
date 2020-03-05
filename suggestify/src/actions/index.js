@@ -7,7 +7,7 @@ const REMOVE_FAVORITE = "REMOVE_FAVORITE";
 
 function loadSongs() {
   return dispatch => {
-    axiosWithAuth().get('https://spotify3-buildweek.herokuapp.com/api/users/dashboard/songs')
+    axiosWithAuth().get('/api/users/dashboard/songs')
       .then(({data}) => dispatch({type: LOAD_SONGS, payload: data}))
       .catch(e => console.error(e));
   };
@@ -15,7 +15,7 @@ function loadSongs() {
 
 function loadFavorites() {
   return dispatch => {
-    axiosWithAuth().get(`https://spotify3-buildweek.herokuapp.com/api/users/dashboard/${localStorage.getItem('id')}/favorites`)
+    axiosWithAuth().get(`/api/users/dashboard/${localStorage.getItem('id')}/favorites`)
       .then(({data}) => dispatch({type: LOAD_FAVORITES, payload: data}))
       .catch(e => console.error(e));
   };
@@ -30,7 +30,7 @@ function addFavorite(song_id) {
 
   return dispatch => {
     axiosWithAuth()
-      .post(`https://spotify3-buildweek.herokuapp.com/api/users/dashboard/${user_id}/favorites`, data)
+      .post(`/api/users/dashboard/${user_id}/favorites`, data)
       .then(({data}) => dispatch({type: ADD_FAVORITE, payload: data}))
       .catch(e => console.error(e));
   };
@@ -39,7 +39,7 @@ function addFavorite(song_id) {
 function removeFavorite(songId) {
   return dispatch => {
     axiosWithAuth()
-      .delete(`https://spotify3-buildweek.herokuapp.com/api/users/dashboard/${localStorage.getItem('id')}/favorites/${songId}`)
+      .delete(`/api/users/dashboard/${localStorage.getItem('id')}/favorites/${songId}`)
       .then(() => dispatch({type: REMOVE_FAVORITE, payload: songId}))
       .catch(e => console.error(e));
   };

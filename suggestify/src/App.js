@@ -1,15 +1,11 @@
-
-import React, { useState } from 'react';
-import {Route, Link, Switch} from 'react-router-dom'
+import React  from 'react';
+import {Route, Switch} from 'react-router-dom';
 import styled from 'styled-components';
 import './App.css';
 import PrivateRoute from "./utils/PrivateRoute";
 import Dashboard from "./components/Dashboard";
-
-import UserLog from './components/UserLog'
-import Login from './components/Login'
-import Register from './components/Register'
-import UserProfile from './components/UserProfile'
+import Login from './components/Login';
+import Register from './components/Register';
 
 const LogContainer = styled.div`
     h2, h3{
@@ -38,9 +34,6 @@ const LogContainer = styled.div`
 `;
 
 function App() {
-  // Should I put user state here and make a newUser register function? Can I do that?
-  const [data, setData] = useState([])
-  // const loadProfile 
   return (
     <div className="App">
       <header className="App-header">
@@ -49,7 +42,7 @@ function App() {
       {/* We can decide where to put the login/register page. for now i'll render it here so it's easier to see/work with */}
         <LogContainer>
         <Switch>
-            <Route path='/profile/:id' render={(props) =>( <UserProfile {...props}/>)} />   
+            <PrivateRoute path="/dashboard" component={Dashboard} />
             <Route path='/register' render={(props) =>(<Register {...props}/>)} />
             <Route exact path='/' render={(props) =>(<Login {...props}/>)} />
         </Switch>

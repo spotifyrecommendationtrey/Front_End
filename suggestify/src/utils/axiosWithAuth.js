@@ -1,10 +1,12 @@
 import axios from 'axios';
-export const axiosWithAuth = () => {
-  const token = window.localStorage.getItem('token');
+
+function axiosWithAuth() {
   return axios.create({
     headers: {
-      authorization: token
+      Authorization: localStorage.getItem('token')
     },
     baseURL: 'https://spotify3-buildweek.herokuapp.com'
   });
-};
+}
+
+export default axiosWithAuth;

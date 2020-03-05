@@ -10,7 +10,7 @@ function Dashboard() {
   useEffect(() => {
     dispatch(loadSongs());
     dispatch(loadFavorites());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>
