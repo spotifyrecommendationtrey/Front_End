@@ -1,11 +1,10 @@
 import axios from 'axios';
-
-function axiosWithAuth() {
+export const axiosWithAuth = () => {
+  const token = window.localStorage.getItem('token');
   return axios.create({
     headers: {
-      Authorization: localStorage.getItem('token')
-    }
+      authorization: token
+    },
+    baseURL: 'https://evening-wildwood-75186.herokuapp.com/'
   });
-}
-
-export default axiosWithAuth;
+};
