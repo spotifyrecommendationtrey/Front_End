@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 import { withFormik, Form, Field} from 'formik';
 import * as Yup from "yup";
-import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 import { Route } from 'react-router-dom';
 import UserProfile from './UserProfile'
