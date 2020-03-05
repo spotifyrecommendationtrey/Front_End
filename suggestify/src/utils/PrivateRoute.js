@@ -1,10 +1,10 @@
-import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+// import React from 'react';
+// import { Route, Redirect } from 'react-router-dom';
 
-function PrivateRoute({component, ...rest}) {
-  return (
-    <Route {...rest} render={props => localStorage.getItem('token') ? <component {...props} /> : <Redirect to="/" />} />
-  );
-}
+// function PrivateRoute({component, ...rest}) {
+//   return (
+//     <Route {...rest} render={props => localStorage.getItem('token') ? <component {...props} /> : <Redirect to="/" />} />
+//   );
+// }
 
-export default PrivateRoute;
+// export default PrivateRoute;

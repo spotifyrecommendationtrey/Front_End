@@ -5,6 +5,6 @@ export const axiosWithAuth = () => {
     headers: {
       authorization: token
     },
-    baseURL: 'https://spotify3-buildweek.herokuapp.com'
+    baseURL: 'https://evening-wildwood-75186.herokuapp.com/'
   });
 };

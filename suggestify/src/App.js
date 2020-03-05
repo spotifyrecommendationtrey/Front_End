@@ -46,7 +46,7 @@ function App() {
       <header className="App-header">
         <h1>Suggestify</h1>
       </header>
-      {/* We can decide where to put the login/register page. for now i'll render it here so it's easier to see/work with */}
+
         <LogContainer>
         <Switch>
             <Route path='/profile/:id' render={(props) =>( <UserProfile {...props}/>)} />   
