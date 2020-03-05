@@ -4,10 +4,6 @@ import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 import { withFormik, Form, Field} from 'formik';
 import * as Yup from "yup";
-import { axiosWithAuth } from '../utils/axiosWithAuth';
-
-import { Route } from 'react-router-dom';
-import UserProfile from './UserProfile'
 
 const FormContainer = styled.div`
     margin: 0 auto;
@@ -126,18 +122,15 @@ const FormikLogin = withFormik({
         password: Yup.string().required("Required Field")
 
     }),
-    handleSubmit: (values, {props, resetForm, setStatus})=>{
-        console.log('props', props)
-        console.log('submitting', values)
+    handleSubmit: (values, {resetForm, setStatus, props: {history}}) => {
+        console.log('submitting', values);
         axios.post('https://spotify3-buildweek.herokuapp.com/api/auth/login', values)
-        .then(response=>{
-            console.log(response);
-            setStatus(response.data)
-            const id = (response.data.id)
-            props.history.push(`/profile/${id}`);
-
+        .then(({data}) => {
+            localStorage.setItem('token', data.token);
+            setStatus(data);
+            history.push(`/dashboard`);
         })
-        .catch(err =>{
+        .catch(err => {
             console.log('OOF!', err);
             resetForm();
         })
@@ -145,4 +138,4 @@ const FormikLogin = withFormik({
 })(Login);
 
 
-export default FormikLogin
+export default FormikLogin;
