@@ -16,7 +16,7 @@ const LogOut = styled.div`
     
 `;
 
-const ProfileContainer = styled.div`
+const ProfileContainer = styled.div` 
     margin: 0 auto;
     border: 5px outset #81b71a;
     border-radius: 25px;
@@ -24,27 +24,29 @@ const ProfileContainer = styled.div`
     background-color: #141414;
 `;
 
-const OtherUsersDiv = styled.div`
-    margin: 2%;
-    border: 5px outset #81b71a;
-    border-radius: 25px;
-    background-color: #141414;
-    .other-users{
-        display: flex;
-        justify-content: space-evenly;
-    }
-`;
+// const OtherUsersDiv = styled.div`
+//     margin: 2%;
+//     border: 5px outset #81b71a;
+//     border-radius: 25px;
+//     background-color: #141414;
+//     .other-users{
+//         display: flex;
+//         flex-flow: wrap;
+//         justify-content: space-evenly;
+//     }
+// `;
 
 
-export default function UserProfile(){
-    const [users, setUsers] = useState([])
-    useEffect(()=>{
-        axios.get('https://spotify3-buildweek.herokuapp.com/api/users')
-        .then(response=>{
-            setUsers(response.data)
-        })
-    }, [])
-    console.log(users)
+export default function UserProfile(props){
+    // const [users, setUsers] = useState([])
+    // useEffect(()=>{
+    //     axios.get('https://spotify3-buildweek.herokuapp.com/api/users')
+    //     .then(response=>{
+    //         setUsers(response.data)
+    //     })
+    // }, [])
+    // console.log(users)
+    console.log(props.message);
     return(
         <div>
             <LogOut>
@@ -54,15 +56,18 @@ export default function UserProfile(){
                 <h2>User Profile</h2>
                 <p>Content Coming Soon</p>
             </ProfileContainer>
-            <OtherUsersDiv>
+            {/* <OtherUsersDiv>
                 <h3>Others Using Suggestify:</h3>
                 <div className='other-users'>
+                    {setTimeout(()=>{
+                        return <div>Loading users...</div>;
+                    }, 5000)}
                     {users.map(user=>{
                     return <p key={user.id}>{user.username}</p>;
                     })}
                 </div>
 
-            </OtherUsersDiv>
+            </OtherUsersDiv> */}
         </div>
 
         

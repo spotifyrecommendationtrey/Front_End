@@ -1,9 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import {Link} from 'react-router-dom';
 import { withFormik, Form, Field} from 'formik';
 import * as Yup from "yup";
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
+import { Route } from 'react-router-dom';
+import UserProfile from './UserProfile'
 
 const FormContainer = styled.div`
     margin: 0 auto;
@@ -44,8 +48,27 @@ const FormContainer = styled.div`
         }
     }
 `; 
+const OtherUsersDiv = styled.div`
+    margin: 2%;
+    border: 5px outset #81b71a;
+    border-radius: 25px;
+    background-color: #141414;
+    .other-users{
+        display: flex;
+        flex-flow: wrap;
+        justify-content: space-evenly;
+    }
+`;
 
 const Login = ({touched, errors, status})=>{
+    
+    const [otherUsers, setOtherUsers] = useState([])
+    useEffect(()=>{
+        axios.get('https://spotify3-buildweek.herokuapp.com/api/users')
+        .then(response=>{
+            setOtherUsers(response.data)
+        })
+    }, [])
 
     const [users, setUsers] = useState([]);
     useEffect(()=>{
@@ -55,17 +78,38 @@ const Login = ({touched, errors, status})=>{
     
 
     return(
-        <FormContainer>
-            <Form>
-                <label htmlFor='username'>Username: </label>
-                <Field type='text' id='username' name ='username' />
-                {touched.username && errors.username && <p className='error'>{errors.username}</p>}
-                <label htmlFor='password'>Password: </label>
-                <Field type='password' id ='password' name='password' />
-                {touched.password && errors.password && <p className='error'>{errors.password}</p>}
-                <button type='submit'>Login</button>
-            </Form>
-        </FormContainer>
+        <div>
+            <h2>Login to Cue the Music</h2>
+            <FormContainer>
+                <Form>
+                    <label htmlFor='username'>Username: </label>
+                    <Field type='text' id='username' name ='username' />
+                    {touched.username && errors.username && <p className='error'>{errors.username}</p>}
+                    <label htmlFor='password'>Password: </label>
+                    <Field type='password' id ='password' name='password' />
+                    {touched.password && errors.password && <p className='error'>{errors.password}</p>}
+                    <button type='submit'>Login</button>
+                </Form>
+            </FormContainer>
+            <h3 className='reg-title-link'>New User?</h3>
+            <div className='register-link'>
+                <Link to='/register'>Register Here</Link>         
+            </div>
+            <OtherUsersDiv>
+                <h3>Others Using Suggestify:</h3>
+                <div className='other-users'>
+                    {setTimeout(()=>{
+                        return <div>Loading users...</div>;
+                    }, 5000)}
+                    {otherUsers.map(user=>{
+                    return <p key={user.id}>{user.username}</p>;
+                    })}
+                </div>
+
+            </OtherUsersDiv>
+            {/* <Route path='/profile/:id' render={(props) =>( <UserProfile {...props} userData={users}/>)} />  */}
+        </div>
+
     )
 }
 const FormikLogin = withFormik({
@@ -82,13 +126,16 @@ const FormikLogin = withFormik({
         password: Yup.string().required("Required Field")
 
     }),
-    handleSubmit: (values, {resetForm, props: {history}})=>{
+    handleSubmit: (values, {props, resetForm, setStatus})=>{
+        console.log('props', props)
         console.log('submitting', values)
         axios.post('https://spotify3-buildweek.herokuapp.com/api/auth/login', values)
-        .then(({data: {id, token}}) => {
-            localStorage.setItem('token', token);
-            localStorage.setItem('id', id);
-            history.push('/dashboard');
+        .then(response=>{
+            console.log(response);
+            setStatus(response.data)
+            const id = (response.data.id)
+            props.history.push(`/profile/${id}`);
+
         })
         .catch(err =>{
             console.log('OOF!', err);

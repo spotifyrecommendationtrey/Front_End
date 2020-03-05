@@ -1,8 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import {Link} from 'react-router-dom';
 import { withFormik, Form, Field} from 'formik';
 import * as Yup from "yup";
+
+import {axiosWithAuth} from '../utils/axiosWithAuth';
 
 const FormContainer = styled.div`
     margin: 0 auto;
@@ -44,40 +47,62 @@ const FormContainer = styled.div`
     }
 `; 
 
-const Register = ({values, touched, errors, status}) => {
+const Register = props => {
+    console.log('props', props)
+    const {
+        values,
+        touched,
+        errors,
+        status,
+        history,
+        handleChange,
+        handleBlur,
+        handleSubmit,
+      } = props;
     // Cred is short for CREDENTIALS
+    console.log(values, touched, errors, status)
+    
     const [userCred, setUserCred] = useState([]);
     useEffect(()=>{
         console.log('New User', status);
         status && setUserCred(userCred =>[...userCred, status])
     }, [status])
 
+    const routeToLogin = props => {
+        return props.history.push('/');
+    }
     return(
-        <FormContainer>
-            <Form>
-                <label htmlFor='username'>Pick a Username: </label>
-                <Field type ='text' id='username' name='username' placeholder='Must be unique' ></Field>
-                {touched.username && errors.username && <p className='error'>{errors.username}</p>}
-                {/* <label htmlFor='user-email'>Email: </label>
-                <input type ='email' id='user-email' name='new-username'></input> */}
-                <label htmlFor='password'>Choose Your Password: </label>
-                <Field type ='password' id='password' name='password' placeholder='Must have at least 8 characters' minLength= '8'/>
-                {touched.username && errors.username && <p className='error'>{errors.username}</p>}
-                <button className='submitBtn' type='submit' >Register</button>
-            </Form>
-        </FormContainer>
+        <div>
+            <h2>Register to Begin Exploring</h2>
+            <FormContainer>
+                <Form>
+                    <label htmlFor='username'>Pick a Username: </label>
+                    <Field type ='text' id='username' name='username' placeholder='Must be unique' ></Field>
+                    {touched.username && errors.username && <p className='error'>{errors.username}</p>}
+                    {/* <label htmlFor='user-email'>Email: </label>
+                    <input type ='email' id='user-email' name='new-username'></input> */}
+                    <label htmlFor='password'>Choose Your Password: </label>
+                    <Field type ='password' id='password' name='password' placeholder='Must have at least 8 characters' minLength= '8' />
+                    {touched.username && errors.username && <p className='error'>{errors.username}</p>}
+                    <button className='submitBtn' type='submit' >Register</button>
+                </Form>
+            </FormContainer>
+            <div className='back-link'>
+                    <Link to='/'>Back</Link>
+                </div>
+        </div>
+
 
     )
 }
 
+
 const FormikRegister = withFormik({
 
-    mapPropsToValues({id, username, password}){
+    mapPropsToValues({username, password}){
         return {
-            id: Date.now() || '',
             username: username || '', 
             password: password || '',
-            toProfile: false
         }
     },
     
@@ -86,14 +111,14 @@ const FormikRegister = withFormik({
         password: Yup.string().required("Required Field").min(8)
 
     }),
-    handleSubmit(values, {resetForm, setStatus}){
-        console.log('submitting', values)
-        axios.post('https://spotify3-buildweek.herokuapp.com/api/auth/register', values)
+    handleSubmit(values, {props, resetForm, setStatus}){
+        // console.log('submitting', values)
+        axiosWithAuth().post('/api/auth/register', values)
         .then(response=>{
-            console.log(response);
+            window.localStorage.setItem('token', response.data.token);
+            console.log('RESPONSE', response);
             setStatus(response.data);
-            this.mapPropsToErrors.history.push('/profile')
-            resetForm();
+            props.history.push('/');
 
         })
         .catch(err =>{
