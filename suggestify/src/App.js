@@ -1,7 +1,10 @@
+
 import React, { useState } from 'react';
 import {Route, Link, Switch} from 'react-router-dom'
 import styled from 'styled-components';
 import './App.css';
+import PrivateRoute from "./utils/PrivateRoute";
+import Dashboard from "./components/Dashboard";
 
 import UserLog from './components/UserLog'
 import Login from './components/Login'
@@ -44,7 +47,6 @@ function App() {
         <h1>Suggestify</h1>
       </header>
       {/* We can decide where to put the login/register page. for now i'll render it here so it's easier to see/work with */}
-      {/* <UserLog/> */}
         <LogContainer>
         <Switch>
             <Route path='/profile/:id' render={(props) =>( <UserProfile {...props}/>)} />   
@@ -54,7 +56,6 @@ function App() {
         </LogContainer>
         </div>
     );
-
 }
 
 

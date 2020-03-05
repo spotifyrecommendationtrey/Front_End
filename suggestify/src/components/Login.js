@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
@@ -135,8 +135,6 @@ const FormikLogin = withFormik({
             setStatus(response.data)
             const id = (response.data.id)
             props.history.push(`/profile/${id}`);
-
-
 
         })
         .catch(err =>{
