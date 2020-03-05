@@ -4,6 +4,7 @@ import Song from "./Song";
 
 function Songs() {
   const songs = useSelector(({songs}) => songs);
+  console.log(songs);
 
   return (
     <div>

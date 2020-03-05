@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import {Route, Switch} from 'react-router-dom'
+import React  from 'react';
+import {Route, Switch} from 'react-router-dom';
 import styled from 'styled-components';
 import './App.css';
 import PrivateRoute from "./utils/PrivateRoute";
@@ -34,9 +34,6 @@ const LogContainer = styled.div`
 `;
 
 function App() {
-  // Should I put user state here and make a newUser register function? Can I do that?
-  const [data, setData] = useState([])
-  // const loadProfile 
   return (
     <div className="App">
       <header className="App-header">

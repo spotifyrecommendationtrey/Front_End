@@ -56,24 +56,15 @@ const OtherUsersDiv = styled.div`
     }
 `;
 
-const Login = ({touched, errors, status})=>{
-    
-    const [otherUsers, setOtherUsers] = useState([])
-    useEffect(()=>{
+const Login = ({touched, errors}) => {
+    const [otherUsers, setOtherUsers] = useState(null);
+
+    useEffect(() => {
         axios.get('https://spotify3-buildweek.herokuapp.com/api/users')
-        .then(response=>{
-            setOtherUsers(response.data)
-        })
-    }, [])
+            .then(({data}) => setOtherUsers(data));
+    }, []);
 
-    const [users, setUsers] = useState([]);
-    useEffect(()=>{
-        console.log('User', status);
-        status && setUsers(users =>[...users, status])
-    }, [status])
-    
-
-    return(
+    return (
         <div>
             <h2>Login to Cue the Music</h2>
             <FormContainer>
@@ -94,40 +85,29 @@ const Login = ({touched, errors, status})=>{
             <OtherUsersDiv>
                 <h3>Others Using Suggestify:</h3>
                 <div className='other-users'>
-                    {setTimeout(()=>{
-                        return <div>Loading users...</div>;
-                    }, 5000)}
-                    {otherUsers.map(user=>{
-                    return <p key={user.id}>{user.username}</p>;
-                    })}
+                    {otherUsers === null && <div>Loading users...</div>}
+                    {otherUsers !== null && otherUsers.map(user => <p key={user.id}>{user.username}</p>)}
                 </div>
-
             </OtherUsersDiv>
-            {/* <Route path='/profile/:id' render={(props) =>( <UserProfile {...props} userData={users}/>)} />  */}
         </div>
+    );
+};
 
-    )
-}
 const FormikLogin = withFormik({
-
-    mapPropsToValues({username, password}){
-        return {
-            username: username || '', 
-            password: password || ''
-        }
+    mapPropsToValues({username = '', password = ''}) {
+        return {username, password};
     },
-    
     validationSchema: Yup.object().shape({
         username: Yup.string().required("Required Field"),
         password: Yup.string().required("Required Field")
 
     }),
-    handleSubmit: (values, {resetForm, setStatus, props: {history}}) => {
+    handleSubmit: (values, {resetForm, props: {history}}) => {
         console.log('submitting', values);
         axios.post('https://spotify3-buildweek.herokuapp.com/api/auth/login', values)
-        .then(({data}) => {
-            localStorage.setItem('token', data.token);
-            setStatus(data);
+        .then(({data: {token, id}}) => {
+            localStorage.setItem('id', id);
+            localStorage.setItem('token', token);
             history.push(`/dashboard`);
         })
         .catch(err => {
@@ -136,6 +116,5 @@ const FormikLogin = withFormik({
         })
     }
 })(Login);
-
 
 export default FormikLogin;
