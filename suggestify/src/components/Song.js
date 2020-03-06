@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 import {addFavorite, loadSongs, removeFavorite} from "../actions";
-import axiosWithAuth from "../utils/axiosWithAuth";
+import axiosWithAuth from "../utils/AxiosWithAuth";
 
 const StyledSong = styled.div`
   margin: 5px;

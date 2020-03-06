@@ -1,4 +1,4 @@
-import axiosWithAuth from "../utils/axiosWithAuth";
+import axiosWithAuth from "../utils/AxiosWithAuth";
 
 const LOAD_SONGS = "LOAD_SONGS";
 const LOAD_FAVORITES = "LOAD_FAVORITES";
