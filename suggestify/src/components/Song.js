@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
-import {addFavorite, removeFavorite} from "../actions";
+import {addFavorite, loadSongs, removeFavorite} from "../actions";
+import axiosWithAuth from "../utils/axiosWithAuth";
 
 const StyledSong = styled.div`
   margin: 5px;
@@ -26,7 +27,7 @@ const StyledButton = styled.button`
   align-self: center;
 `;
 
-function Song({track_id: id, track_name, artist_name}) {
+function Song({track_id: id, track_name, artist_name, cover_art}) {
   const favorited = useSelector(({favorites}) => favorites.find(({track_id}) => id === track_id));
   const dispatch = useDispatch();
 
@@ -34,11 +35,19 @@ function Song({track_id: id, track_name, artist_name}) {
     dispatch((favorited ? removeFavorite : addFavorite)(id));
   }
 
+  function suggestSongs() {
+    axiosWithAuth().get(`/api/users/dashboard/suggestions/${id}`)
+      .then(({data}) => dispatch(loadSongs(data)))
+      .catch(e => console.error(e));
+  }
+
   return (
     <StyledSong>
       <Title>{track_name}</Title>
+      <img src={cover_art} />
       <Artist>Artist: {artist_name}</Artist>
       <StyledButton onClick={toggleFavorite}>{favorited ? "Unfavorite" : "Favorite"}</StyledButton>
+      <StyledButton onClick={suggestSongs}>Suggested</StyledButton>
     </StyledSong>
   );
 }

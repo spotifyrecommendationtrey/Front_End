@@ -1,15 +1,14 @@
-import axiosWithAuth from "../utils/AxiosWithAuth";
+import axiosWithAuth from "../utils/axiosWithAuth";
 
 const LOAD_SONGS = "LOAD_SONGS";
 const LOAD_FAVORITES = "LOAD_FAVORITES";
 const ADD_FAVORITE = "ADD_FAVORITE";
 const REMOVE_FAVORITE = "REMOVE_FAVORITE";
 
-function loadSongs() {
-  return dispatch => {
-    axiosWithAuth().get('/api/users/dashboard/songs')
-      .then(({data}) => dispatch({type: LOAD_SONGS, payload: data}))
-      .catch(e => console.error(e));
+function loadSongs(data) {
+  return {
+    type: LOAD_SONGS,
+    payload: data
   };
 }
 
